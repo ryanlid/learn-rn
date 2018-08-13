@@ -55,14 +55,17 @@ export default class App extends Component<Props> {
       ]),
       advertisements:[
         { //
+          image: require('./images/advertisement-img-1.jpg'),
           url:'http://img1.gtimg.com/rcdimg/20180812/10/3108373175_273x145.jpg',
           title: '广告111',
           backgroundColor: 'gray'
         },{
+          image: require('./images/advertisement-img-2.jpg'),
           url:'http://img1.gtimg.com/rcdimg/20180812/13/3731471599_273x145.jpg',
           title: '广告2222',
           backgroundColor: 'orange'
         },{
+          image: require('./images/advertisement-img-3.jpg'),
           url:'http://img1.gtimg.com/ninja/2/2018/08/ninja153411020684932.jpg',
           title: '广告3333',
           backgroundColor: 'yellow'
@@ -100,6 +103,7 @@ export default class App extends Component<Props> {
             {this.state.advertisements.map((advertisement,index)=>{
               return (
                 <TouchableHighlight key={index} onPress={()=>Alert.alert('你点击了轮播图',null,null)}>
+<<<<<<< Updated upstream
                   {/* <Text style={[
                       styles.advertisementContent, {
                       backgroundColor: advertisement.backgroundColor
@@ -108,11 +112,31 @@ export default class App extends Component<Props> {
                     {advertisement.url}
                   </Text> */}
                   <Image style={styles.advertisementContent} source={{uri: advertisement.url}}
+=======
+                  <Image style={styles.advertisementContent} source={advertisement.image}
+>>>>>>> Stashed changes
                   ></Image>
                 </TouchableHighlight>
               )
             })}
           </ScrollView>
+<<<<<<< Updated upstream
+=======
+          <View style={[
+            styles.indicator,{
+              left:left
+              }
+            ]}>
+            {this.state.advertisements.map((advertisement,index)=>{
+              return (
+                <View key={index}
+                  style={(index === this.state.currentPage)
+                    ? styles.circleSelected
+                    : styles.circle} />);
+                }
+              )}
+          </View>
+>>>>>>> Stashed changes
         </View>
         <View style={styles.products}>
           <ListView dataSource={this.state.dataSource} renderRow={this._renderRow}>
@@ -193,4 +217,26 @@ const styles = StyleSheet.create({
     width: Dimensions.get('window').width,
     height: 180
   },
+<<<<<<< Updated upstream
+=======
+  indicator:{
+    position: 'absolute',
+    top: 160,
+    flexDirection: 'row'
+  },
+  circle:{
+    width: circleSize,
+    height: circleSize,
+    borderRadius: circleSize/2,
+    backgroundColor: 'gray',
+    marginHorizontal: circleMargin
+  },
+  circleSelected:{
+    width: circleSize,
+    height: circleSize,
+    borderRadius: circleSize/2,
+    backgroundColor: 'white',
+    marginHorizontal: circleMargin
+  }
+>>>>>>> Stashed changes
 });
