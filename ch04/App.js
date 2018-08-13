@@ -37,6 +37,7 @@ export default class App extends Component<Props> {
   constructor(Props){
     super(Props);
     this.state = {
+      searchText:'',
       currentPage:0,
       dataSource:ds.cloneWithRows([
         "商品1",
@@ -76,11 +77,14 @@ export default class App extends Component<Props> {
           barStyle={'default'}
           networkActivityIndicatorVisible={true}> // 显示正在请求网络的状态
         </StatusBar>
-
          <View style={styles.searchbar}>
-            <TextInput style={styles.input} placeholder='搜索商品'>
+            <TextInput style={styles.input} placeholder='搜索商品'
+              onChangeText={(text)=>{
+                this.setState({searchText:text});
+                console.log('输入的内容是'+this.state.searchText)
+              }}>
             </TextInput>
-            <Button style={styles.button} title='搜索' onPress={()=>Alert.alert('你点击了搜索按钮')}></Button>
+            <Button style={styles.button} title='搜索' onPress={()=>Alert.alert('搜索内容:' + this.state.searchText ,null,null)}></Button>
         </View>
         <View style={styles.advertisement}>
           <ScrollView ref="scrollView"
@@ -166,7 +170,8 @@ const styles = StyleSheet.create({
   input:{
     flex: 1,
     borderColor:'gray',
-    borderWidth: 2
+    borderWidth: 2,
+    borderRadius: 10
   },
   button:{
     flex:1
