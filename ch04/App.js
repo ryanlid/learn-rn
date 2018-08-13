@@ -49,7 +49,19 @@ export default class App extends Component<Props> {
         "商品8",
         "商品9",
         "商品10"
-      ])
+      ]),
+      advertisements:[
+        { //
+          title: '广告111',
+          backgroundColor: 'gray'
+        },{
+          title: '广告2222',
+          backgroundColor: 'orange'
+        },{
+          title: '广告3333',
+          backgroundColor: 'yellow'
+        }
+      ]
     };
   }
   render() {
@@ -76,39 +88,21 @@ export default class App extends Component<Props> {
             showsHorizontalScrollIndicator={false}
             pagingEnabled={true}
             >
-            <TouchableHighlight onPress={()=>Alert.alert('你点击了轮播图',null,null)}>
-              <Text style={{
-                width: Dimensions.get('window').width,
-                height:180,
-                backgroundColor:'gray'
-              }}>
-                广告1
-              </Text>
-              </TouchableHighlight>
-              <TouchableHighlight onPress={()=>Alert.alert('你点击了轮播图',null,null)}>
-            <Text style={{
-              width: Dimensions.get('window').width,
-              height:180,
-              backgroundColor:'orange'
-            }}>
-              广告2
-            </Text>
-            </TouchableHighlight>
-            <TouchableHighlight onPress={()=>Alert.alert('你点击了轮播图',null,null)}>
-            <Text style={{
-              width: Dimensions.get('window').width,
-              height:180,
-              backgroundColor:'yellow'
-            }}>
-              广告3
-            </Text>
-            </TouchableHighlight>
+            {this.state.advertisements.map((advertisement,index)=>{
+              return (
+              <TouchableHighlight key={index} onPress={()=>Alert.alert('你点击了轮播图',null,null)}>
+                <Text style={[
+                  styles.advertisementContent, {
+                  backgroundColor: advertisement.backgroundColor
+                  }
+                ]}>
+                  {advertisement.title}
+                </Text>
+              </TouchableHighlight>)
+            })}
           </ScrollView>
         </View>
         <View style={styles.products}>
-          {/* <Text>
-            商品列表
-          </Text> */}
           <ListView dataSource={this.state.dataSource} renderRow={this._renderRow}>
 
           </ListView>
@@ -181,5 +175,9 @@ const styles = StyleSheet.create({
     height:60,
     justifyContent:'center',
     alignItems:'center'
-  }
+  },
+  advertisementContent:{
+    width: Dimensions.get('window').width,
+    height: 180
+  },
 });
