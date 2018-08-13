@@ -18,8 +18,10 @@ import {
   ListView,
   Alert,
   TouchableHighlight,
-  StatusBar
+  StatusBar,
+  Image
 } from 'react-native';
+
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -53,12 +55,15 @@ export default class App extends Component<Props> {
       ]),
       advertisements:[
         { //
+          url:'http://img1.gtimg.com/rcdimg/20180812/10/3108373175_273x145.jpg',
           title: '广告111',
           backgroundColor: 'gray'
         },{
+          url:'http://img1.gtimg.com/rcdimg/20180812/13/3731471599_273x145.jpg',
           title: '广告2222',
           backgroundColor: 'orange'
         },{
+          url:'http://img1.gtimg.com/ninja/2/2018/08/ninja153411020684932.jpg',
           title: '广告3333',
           backgroundColor: 'yellow'
         }
@@ -94,15 +99,18 @@ export default class App extends Component<Props> {
             >
             {this.state.advertisements.map((advertisement,index)=>{
               return (
-              <TouchableHighlight key={index} onPress={()=>Alert.alert('你点击了轮播图',null,null)}>
-                <Text style={[
-                  styles.advertisementContent, {
-                  backgroundColor: advertisement.backgroundColor
-                  }
-                ]}>
-                  {advertisement.title}
-                </Text>
-              </TouchableHighlight>)
+                <TouchableHighlight key={index} onPress={()=>Alert.alert('你点击了轮播图',null,null)}>
+                  {/* <Text style={[
+                      styles.advertisementContent, {
+                      backgroundColor: advertisement.backgroundColor
+                      }
+                    ]}>
+                    {advertisement.url}
+                  </Text> */}
+                  <Image style={styles.advertisementContent} source={{uri: advertisement.url}}
+                  ></Image>
+                </TouchableHighlight>
+              )
             })}
           </ScrollView>
         </View>
