@@ -45,16 +45,56 @@ export default class App extends Component<Props> {
       searchText:'',
       currentPage:0,
       dataSource:ds.cloneWithRows([
-        "商品1",
-        "商品2",
-        "商品3",
-        "商品4",
-        "商品5",
-        "商品6",
-        "商品7",
-        "商品8",
-        "商品9",
-        "商品10"
+        {
+          image: require('./images/advertisement-img-1.jpg'),
+          title: '商品1',
+          subTitle: '描述1'
+        },
+        {
+          image: require('./images/advertisement-img-1.jpg'),
+          title: '商品2',
+          subTitle: '描述2'
+        },
+        {
+          image: require('./images/advertisement-img-1.jpg'),
+          title: '商品3',
+          subTitle: '描述3'
+        },
+        {
+          image: require('./images/advertisement-img-1.jpg'),
+          title: '商品4',
+          subTitle: '描述4'
+        },
+        {
+          image: require('./images/advertisement-img-1.jpg'),
+          title: '商品5',
+          subTitle: '描述5'
+        },
+        {
+          image: require('./images/advertisement-img-1.jpg'),
+          title: '商品6',
+          subTitle: '描述6'
+        },
+        {
+          image: require('./images/advertisement-img-1.jpg'),
+          title: '商品7',
+          subTitle: '描述7'
+        },
+        {
+          image: require('./images/advertisement-img-1.jpg'),
+          title: '商品8',
+          subTitle: '描述8'
+        },
+        {
+          image: require('./images/advertisement-img-1.jpg'),
+          title: '商品9',
+          subTitle: '描述9'
+        },
+        {
+          image: require('./images/advertisement-img-1.jpg'),
+          title: '商品10',
+          subTitle: '描述10'
+        },
       ]),
       advertisements:[
         { //
@@ -135,11 +175,12 @@ export default class App extends Component<Props> {
           </View>
         </View>
         <View style={styles.products}>
-          <ListView dataSource={this.state.dataSource} renderRow={this._renderRow}>
-
+          <ListView dataSource={this.state.dataSource}
+                    renderRow={this._renderRow}
+                    renderSeparator={this._renderSeparator}
+                    >
           </ListView>
         </View>
-
       </View>
     );
   }
@@ -164,12 +205,25 @@ export default class App extends Component<Props> {
   }
   _renderRow = (rowData,sectionID,rowID)=>{
     return(
-      <View style={styles.row}>
-        <TouchableHighlight onPress={()=>Alert.alert('你点击了商品列表',null,null)}>
-          <Text>
-            {rowData}
-          </Text>
-        </TouchableHighlight>
+      <TouchableHighlight onPress={()=>Alert.alert('你点击了商品列表',null,null)}>
+        <View style={styles.row}>
+          <Image source={rowData.image} style={styles.productImage}>
+          </Image>
+          <View style={styles.productText}>
+            <Text style={styles.productTitle}>
+              {rowData.title}
+            </Text>
+            <Text style={styles.productSubTitle}>
+              {rowData.subTitle}
+            </Text>
+          </View>
+        </View>
+      </TouchableHighlight>
+    )
+  }
+  _renderSeparator(sectionID,rowID,adjacentRowHighlighted){
+    return(
+      <View key={`${sectionID}-${rowID}`} style={styles.divider}>
       </View>
     )
   }
@@ -191,9 +245,6 @@ const styles = StyleSheet.create({
   },
   products:{
     flex:1,
-    backgroundColor:'blue',
-    justifyContent:'center',
-    alignItems:'center'
   },
   input:{
     flex: 1,
@@ -205,13 +256,43 @@ const styles = StyleSheet.create({
     flex:1
   },
   row:{
-    height:60,
-    justifyContent:'center',
-    alignItems:'center'
+    height: 60,
+    flexDirection: 'row',
+    backgroundColor: 'white'
+  },
+
+  productImage:{
+    marginLeft: 10,
+    marginRight: 10,
+    width: 40,
+    height:40,
+    alignSelf: 'center'
+  },
+
+  productText:{
+    flex: 1,
+    marginTop: 4,
+    marginBottom: 10
+    // flexDirection:'column'
+  },
+  productTitle:{
+    flex:3,
+    fontSize: 16
+  },
+  productSubTitle:{
+    flex:2,
+    fontSize: 14,
+    color: 'gray'
   },
   advertisementContent:{
     width: Dimensions.get('window').width,
     height: 180
+  },
+  divider:{
+    height: 1,
+    width: Dimensions.get('window').width - 5,
+    marginLeft: 5,
+    backgroundColor: 'lightgray'
   },
   indicator:{
     position: 'absolute',
