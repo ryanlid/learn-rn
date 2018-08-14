@@ -103,25 +103,12 @@ export default class App extends Component<Props> {
             {this.state.advertisements.map((advertisement,index)=>{
               return (
                 <TouchableHighlight key={index} onPress={()=>Alert.alert('你点击了轮播图',null,null)}>
-<<<<<<< Updated upstream
-                  {/* <Text style={[
-                      styles.advertisementContent, {
-                      backgroundColor: advertisement.backgroundColor
-                      }
-                    ]}>
-                    {advertisement.url}
-                  </Text> */}
-                  <Image style={styles.advertisementContent} source={{uri: advertisement.url}}
-=======
                   <Image style={styles.advertisementContent} source={advertisement.image}
->>>>>>> Stashed changes
                   ></Image>
                 </TouchableHighlight>
               )
             })}
           </ScrollView>
-<<<<<<< Updated upstream
-=======
           <View style={[
             styles.indicator,{
               left:left
@@ -136,7 +123,6 @@ export default class App extends Component<Props> {
                 }
               )}
           </View>
->>>>>>> Stashed changes
         </View>
         <View style={styles.products}>
           <ListView dataSource={this.state.dataSource} renderRow={this._renderRow}>
@@ -217,8 +203,6 @@ const styles = StyleSheet.create({
     width: Dimensions.get('window').width,
     height: 180
   },
-<<<<<<< Updated upstream
-=======
   indicator:{
     position: 'absolute',
     top: 160,
@@ -238,5 +222,4 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     marginHorizontal: circleMargin
   }
->>>>>>> Stashed changes
 });
