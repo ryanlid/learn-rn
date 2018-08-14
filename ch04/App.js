@@ -34,6 +34,9 @@ const ds = new ListView.DataSource({
   rowHasChanged:(r1,r2,)=> (r1!==r2)
 })
 
+const circleSize = 8;
+const circleMargin = 5;
+
 type Props = {};
 export default class App extends Component<Props> {
   constructor(Props){
@@ -74,6 +77,13 @@ export default class App extends Component<Props> {
     };
   }
   render() {
+    // 指示器圆点个数
+    const advertisementCount = this.state.advertisements.length;
+    // 计算指示器的宽度
+    const indicatorWidth = circleSize * advertisementCount + circleMargin * advertisementCount * 2;
+    // 计算指示器最左边的位置的坐标
+    const left = (Dimensions.get('window').width - indicatorWidth) / 2;
+
     return (
       // <View style={styles.container}>
       //   <Text style={styles.welcome}>Welcome to React Native!</Text>
