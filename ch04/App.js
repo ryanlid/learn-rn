@@ -10,7 +10,8 @@ import React, {Component} from 'react';
 import {
   Platform,
   StyleSheet,
-  Text, View,
+  Text,
+  View,
   TextInput,
   Button,
   ScrollView,
@@ -19,6 +20,7 @@ import {
   Alert,
   TouchableHighlight,
   StatusBar,
+  RefreshControl,
   Image
 } from 'react-native';
 
@@ -43,6 +45,8 @@ export default class App extends Component<Props> {
     super(Props);
     this.state = {
       searchText:'',
+      // 是否正在刷新的标志
+      isRefreshing: false,
       currentPage:0,
       dataSource:ds.cloneWithRows([
         {
@@ -178,6 +182,7 @@ export default class App extends Component<Props> {
           <ListView dataSource={this.state.dataSource}
                     renderRow={this._renderRow}
                     renderSeparator={this._renderSeparator}
+                    refreshControl={this._renderRefreshControl()}
                     >
           </ListView>
         </View>
@@ -226,6 +231,34 @@ export default class App extends Component<Props> {
       <View key={`${sectionID}-${rowID}`} style={styles.divider}>
       </View>
     )
+  }
+  _renderRefreshControl(){
+    return(
+      <RefreshControl
+        refreshing={this.state.isRefreshing}
+        // 刷新时调用的 onRefresh() 方法
+        onRefresh={this._onRefresh}
+        tintColor={'#FF0000'}
+        title={'正在刷新数据，请稍等...'}
+        titleColor={'#0000FF'}
+        >
+      </RefreshControl>
+    )
+  }
+  _onRefresh = () => {
+    // 设置状态为正在刷新
+    this.setState({isRefreshing:true});
+
+    setTimeout(() => {
+      const products = Array.from(new Array(10)).map((value,index)=>({
+        image: require('./images/advertisement-img-1.jpg'),
+        title: '新商品' + index,
+        subTitle: '新商品描述' + index
+      }))
+      this.setState({isRefreshing:false,dataSource:ds.cloneWithRows(products)});
+      // 设置状态为结束刷新
+      this.setState({isRefreshing:false})
+    }, 2000);
   }
 }
 
